@@ -1,0 +1,9 @@
+Note:Please make a build folder and put env. file in 'scenes' folder.
+ 
+List of Commands
+----------------
+mkdir build
+cmake ..
+build
+cd ..
+python HW3.py

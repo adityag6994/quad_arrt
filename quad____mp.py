@@ -1,0 +1,59 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#HW1 for RBE 595/CS 525 Motion Planning
+#code based on the simplemanipulation.py example
+from __future__ import division
+from __future__ import with_statement  # for python 2.5
+
+import time
+import openravepy as rave
+import argparse
+import parser
+
+#import navigation
+#import test
+
+
+if not __openravepy_build_doc__:
+    from openravepy import *
+    from numpy import *
+
+def waitrobot(robot):
+    """busy wait for robot completion"""
+    while not robot.GetController().IsDone():
+        time.sleep(0.01)
+
+def parse_args():
+    ap = argparse.ArgumentParser()
+
+    ap.add_argument('--verbose', action='store_true')
+    ap.add_argument('--test', action='store_true')
+    ap.add_argument('--params', default='params/quadrotor.yaml')
+
+    return ap.parse_args()
+
+@rave.with_destroy
+def run():
+	
+    args = parse_args()
+    params = parser.Yaml(file_name=args.params)
+    env = rave.Environment()
+    env.SetViewer('qtcoin')
+    env.Reset()
+    # load a scene from ProjectRoom environment XML file
+    env.Load(params.scene)
+    env.UpdatePublishedBodies()
+    time.sleep(0.1)
+
+    # 1) get the 1st robot that is inside the loaded scene
+    # 2) assign it to the variable named 'robot'
+    robot = env.GetRobots()[0]
+
+    
+
+    raw_input("Press enter to exit...")
+
+if __name__ == "__main__":
+    rave.RaveSetDebugLevel(rave.DebugLevel.Verbose)
+
+    run()

@@ -1,0 +1,4 @@
+ export PYTHONPATH="${PYTHONPATH}:/home/aditya/trajopt"
+ export PYTHONPATH="${PYTHONPATH}:/home/aditya/trajopt/build/lib"
+ ./run.sh
+
